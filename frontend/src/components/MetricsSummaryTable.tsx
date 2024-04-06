@@ -80,7 +80,7 @@ const MetricsSummaryTable = () => {
                 <Table.Body>
                     {data?.map((row, ind) => {
                         return (
-                          <Table.Row>
+                          <Table.Row key={"row" + ind}>
                             <Table.Cell key={ind} className="max-w-80">
                               {row.topic}
                             </Table.Cell>

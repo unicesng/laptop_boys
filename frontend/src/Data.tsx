@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import DataSideBar from "./components/DataSideBar";
 import AdminHeader from "./components/AdminHeader";
-import DataGraph from "./components/DataGraph";
 
 const Data: React.FC = () => {
     const [isExpanded, setIsExpanded] = useState(false);
@@ -41,7 +40,7 @@ const Data: React.FC = () => {
                     <h1 className="text-2xl">{title}</h1>
                     <h2 className="text-2xl">{description}</h2>
                     <div className="w-full flex">
-                        <DataGraph></DataGraph>
+                        {/* <DataGraph></DataGraph> */}
                     </div>
                 </div>
             </div>

@@ -10,6 +10,23 @@ import {
 } from "flowbite-react";
 import { createCompany } from "./api/api";
 
+type Standard = "GRI" | "CDP" | "SASB";
+
+type Industry = {
+  name: (| "CONSUMER GOODS"
+    | "EXTRACTIVES & MINERALS PROCESSING"
+    | "FINANCIALS"
+    | "FOOD & BEVERAGE"
+    | "HEALTH CARE"
+    | "INFRASTRUCTURE"
+    | "RENEWABLE RESOURCES & ALTERNATIVE ENERGY"
+    | "RESOURCE TRANSFORMATION"
+    | "SERVICES"
+    | "TECHNOLOGY & COMMUNICATIONS"
+    | "TRANSPORTATION"),
+  standards: Standard[]
+}
+
 export interface ProfileData {
   name: string;
   email: string;
@@ -17,11 +34,12 @@ export interface ProfileData {
   employees: number;
   revenue: number;
   description: string;
+  industry: Industry;
 }
 
 const Profile = () => {
   const [selectedValue, setSelectedValue] = useState("");
-  const [selectedStandards, setSelectedStandards] = useState([]);
+  const [selectedStandards, setSelectedStandards] = useState([] as Standard[]);
   const navigate = useNavigate();
 
   let messageDisplayed = false;
@@ -155,6 +173,8 @@ const Profile = () => {
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     const formData = new FormData(event.currentTarget);
     const profileData = Object.fromEntries(formData.entries());
+    profileData.industry = selectedValue;
+    profileData.standards = selectedStandards;
     console.log(profileData);
     const result = createCompany(profileData);
     console.log(result);
