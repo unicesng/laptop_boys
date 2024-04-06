@@ -33,7 +33,7 @@ interface Feedback {
 }
 
 const Data: React.FC = () => {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(true);
   const [recommendations, setRecommendations] =
     useState<Recommendations | null>(null);
   const [feedback, setFeedback] = useState<Feedback | null>(null);
@@ -77,91 +77,95 @@ const Data: React.FC = () => {
   const topic = "Management of Chemicals in Products ";
 
   return (
-    <div className="w-full items-center flex flex-col ">
-      <AdminHeader title="Data Visualisation"></AdminHeader>
-      <div className="w-full flex flex-row">
+    <>
+      <div className="flex w-full">
+        <div className="w-full items-center flex flex-col gap-5">
+          <AdminHeader title="Data Visualisation"></AdminHeader>
+          <div className="w-full flex flex-row">
+            <div className="flex flex-col items-center justify-center mx-auto text-left">
+              <h1 className="text-2xl">{title}</h1>
+              <h2 className="text-2xl">{description}</h2>
+              <div className="w-full flex">
+                <DataGraph></DataGraph>
+              </div>
+            </div>
+          </div>
+          <div className="flex gap-2 mb-10">
+            <Button onClick={() => getRecommendations()} color="purple">
+              Get Recommendations
+            </Button>
+            <Button onClick={() => getFeedback()} color="purple">
+              Get Feedback
+            </Button>
+          </div>
+          {isRecommendationsLoading ? (
+            <Spinner className="mb-5"></Spinner>
+          ) : recommendations ? (
+            <div className="w-4/5 mb-10">
+              <p className="text-lg font-semibold text-center mb-3">
+                Recommendations
+              </p>
+              <p className="text-justify whitespace-pre-line">
+                {recommendations.overall}
+                <br />
+                {Object.keys(recommendations.recommend).map((key) => {
+                  return (
+                    <div key={key}>
+                      <p className="mt-2">
+                        <span className="font-semibold mt-3">
+                          {recommendations.recommend[key].category}
+                        </span>
+                        :&nbsp;{recommendations.recommend[key].description}
+                      </p>
+                    </div>
+                  );
+                })}
+              </p>
+            </div>
+          ) : null}
+          {isFeedbackLoading ? (
+            <Spinner className="mb-5"></Spinner>
+          ) : feedback ? (
+            <div className="w-4/5 mb-10">
+              <p className="text-lg font-semibold text-center mb-3">Feedback</p>
+              <p className="text-justify whitespace-pre-line">
+                {feedback.overall}
+                <br />
+                {Object.keys(feedback.feedback).map((key) => {
+                  return (
+                    <div key={key}>
+                      <p className="mt-3">
+                        <span className="font-semibold mt-3">
+                          {key}:&nbsp;
+                          {feedback.feedback[key].category === "GOOD" ? (
+                            <span className="text-green-500">GOOD</span>
+                          ) : feedback.feedback[key].category === "OK" ? (
+                            <span className="text-yellow-500">
+                              {feedback.feedback[key].category}
+                            </span>
+                          ) : (
+                            <span className="text-red-500">
+                              {feedback.feedback[key].category}
+                            </span>
+                          )}
+                        </span>
+                        <br />
+                        {feedback.feedback[key].description}
+                      </p>
+                    </div>
+                  );
+                })}
+              </p>
+            </div>
+          ) : null}
+        </div>
         <DataSideBar
           isExpanded={isExpanded}
           onToggleSidebar={onToggleSidebar}
           selectedMetrics={[]}
         />
-        <div className="flex flex-col items-center justify-center mx-auto text-left">
-          <h1 className="text-2xl">{title}</h1>
-          <h2 className="text-2xl">{description}</h2>
-          <div className="w-full flex">
-            <DataGraph></DataGraph>
-          </div>
-        </div>
       </div>
-      <div className="flex gap-2 mb-10">
-        <Button onClick={() => getRecommendations()} color="purple">
-          Get Recommendations
-        </Button>
-        <Button onClick={() => getFeedback()} color="purple">
-          Get Feedback
-        </Button>
-      </div>
-      {isRecommendationsLoading ? (
-        <Spinner className="mb-5"></Spinner>
-      ) : recommendations ? (
-        <div className="w-4/5 mb-10">
-          <p className="text-lg font-semibold text-center mb-3">
-            Recommendations
-          </p>
-          <p className="text-justify whitespace-pre-line">
-            {recommendations.overall}
-            <br />
-            {Object.keys(recommendations.recommend).map((key) => {
-              return (
-                <div key={key}>
-                  <p className="mt-2">
-                    <span className="font-semibold mt-3">
-                      {recommendations.recommend[key].category}
-                    </span>
-                    :&nbsp;{recommendations.recommend[key].description}
-                  </p>
-                </div>
-              );
-            })}
-          </p>
-        </div>
-      ) : null}
-      {isFeedbackLoading ? (
-        <Spinner className="mb-5"></Spinner>
-      ) : feedback ? (
-        <div className="w-4/5 mb-10">
-          <p className="text-lg font-semibold text-center mb-3">Feedback</p>
-          <p className="text-justify whitespace-pre-line">
-            {feedback.overall}
-            <br />
-            {Object.keys(feedback.feedback).map((key) => {
-              return (
-                <div key={key}>
-                  <p className="mt-3">
-                    <span className="font-semibold mt-3">
-                      {key}:&nbsp;
-                      {feedback.feedback[key].category === "GOOD" ? (
-                        <span className="text-green-500">GOOD</span>
-                      ) : feedback.feedback[key].category === "OK" ? (
-                        <span className="text-yellow-500">
-                          {feedback.feedback[key].category}
-                        </span>
-                      ) : (
-                        <span className="text-red-500">
-                          {feedback.feedback[key].category}
-                        </span>
-                      )}
-                    </span>
-                    <br />
-                    {feedback.feedback[key].description}
-                  </p>
-                </div>
-              );
-            })}
-          </p>
-        </div>
-      ) : null}
-    </div>
+    </>
   );
 };
 
