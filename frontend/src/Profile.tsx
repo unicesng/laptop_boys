@@ -173,8 +173,11 @@ const Profile = () => {
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     const formData = new FormData(event.currentTarget);
     const profileData = Object.fromEntries(formData.entries());
-    profileData.industry = selectedValue;
-    profileData.standards = selectedStandards;
+    const industry = {
+      name: selectedValue,
+      standards: selectedStandards,
+    }
+    profileData.industry =  industry;
     console.log(profileData);
     const result = createCompany(profileData);
     console.log(result);
