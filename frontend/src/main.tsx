@@ -6,6 +6,7 @@ import Profile from './Profile.tsx'
 import "./index.css";
 import SidebarNav from "./SideBarNav.tsx";
 import Dashboard from "./Dashboard.tsx";
+import Metric from "./Metric.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <BrowserRouter>
@@ -16,6 +17,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <Route path="/signin" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/metric" element={<Metric />} />
       </Routes>
     </div>
   </BrowserRouter>
