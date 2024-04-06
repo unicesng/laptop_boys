@@ -213,12 +213,44 @@ const Profile = () => {
                 <Label
                   className="font-semibold"
                   htmlFor="profile4"
+                  value="Number of Employees"
+                />
+              </div>
+              <TextInput
+                id="profile4"
+                name="profile4"
+                type="number"
+                placeholder="Number of Employees"
+                required
+              />
+            </div>
+            <div>
+              <div className="mb-2 block">
+                <Label
+                  className="font-semibold"
+                  htmlFor="profile5"
+                  value="Company Revenue ($)"
+                />
+              </div>
+              <TextInput
+                id="profile5"
+                name="profile5"
+                type="number"
+                placeholder="Company Revenue"
+                required
+              />
+            </div>
+            <div>
+              <div className="mb-2 block">
+                <Label
+                  className="font-semibold"
+                  htmlFor="profile6"
                   value="Company Description"
                 />
               </div>
               <Textarea
-                id="profile4"
-                name="profile4"
+                id="profile6"
+                name="profile6"
                 type="text"
                 placeholder="Company Description"
                 required
@@ -229,12 +261,12 @@ const Profile = () => {
               <div className="mb-2 block">
                 <Label
                   className="font-semibold"
-                  htmlFor="profile5"
+                  htmlFor="profile7"
                   value="Industry"
                 />
               </div>
               <Select
-                id="profile5"
+                id="profile7"
                 onChange={handleChange}
                 value={selectedValue}
                 required
@@ -266,7 +298,7 @@ const Profile = () => {
               <div className="block">
                 <Label
                   className="font-semibold"
-                  htmlFor="profile6"
+                  htmlFor="profile8"
                   value="Available Standards"
                 />
               </div>
