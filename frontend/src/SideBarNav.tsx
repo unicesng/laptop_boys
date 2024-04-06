@@ -33,7 +33,7 @@ function SidebarNav() {
   return (
     <Sidebar
       aria-label="Default sidebar example"
-      className="h-screen sticky top-0 shadow-md"
+      className="h-screen sticky top-0 w-48 shadow-md"
     >
       <Sidebar.Items>
         <Sidebar.ItemGroup>
