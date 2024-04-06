@@ -14,7 +14,7 @@ const AssignDepartmentModal: React.FC = () =>{
 
   return (
     <>
-      <Button onClick={() => setOpenModal(true)}>Assign Department</Button>
+      <Button color="purple" onClick={() => setOpenModal(true)}>Assign Department</Button>
       <Modal dismissible show={openModal} onClose={() => setOpenModal(false)}>
         <Modal.Header>Assign Departments</Modal.Header>
         <Modal.Body className="flex">
@@ -25,10 +25,10 @@ const AssignDepartmentModal: React.FC = () =>{
                 className="w-full p-2 border border-gray-300 rounded-md"
                 onChange={(e) => setEmail(e.target.value)}
             />
-            <Button onClick={handleSendEmail}>Send Email</Button>
+            <Button color="purple" onClick={handleSendEmail}>Send Email</Button>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={() => setOpenModal(false)}>I accept</Button>
+          <Button color="purple" onClick={() => setOpenModal(false)}>I accept</Button>
           <Button color="gray" onClick={() => setOpenModal(false)}>
             Decline
           </Button>

@@ -15,14 +15,14 @@ const targetData = [
   {
     metricName: "Energy Consumption in kWh",
     metricStat: 100,
-    status: "bg-yellow-300",
+    status: "bg-yellow-400",
     targetStat: 75,
     change: 2,
   },
   {
     metricName: "Water Usage in Metric Tons",
     metricStat: 18,
-    status: "bg-green-500",
+    status: "bg-green-400",
     targetStat: 12,
     change: 0.2,
   },
