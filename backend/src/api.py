@@ -349,6 +349,7 @@ def insert_company():
 def get_company(id):
     company = company_col.find_one({"_id": ObjectId(id)})
     if company is not None:
+        company['_id'] = str(company['_id'])
         return {"company": company}
     else:
         return {"error": "Company not found"}, 404
