@@ -2,4 +2,4 @@
 backend/dist/
 
 # Ignore the .env file
-backend/.env
+./backend/.env
