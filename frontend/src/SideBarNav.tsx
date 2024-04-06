@@ -1,8 +1,15 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { onAuthStateChanged } from "firebase/auth"; 
+import { onAuthStateChanged } from "firebase/auth";
 import { Sidebar } from "flowbite-react";
-import { HiArrowSmRight, HiChartPie, HiInbox, HiShoppingBag, HiTable, HiUser, HiViewBoards } from "react-icons/hi";
+import {
+  HiArrowSmRight,
+  HiChartPie,
+  HiInbox,
+  HiShoppingBag,
+  HiUser,
+  HiViewBoards,
+} from "react-icons/hi";
 import { auth } from "../firebaseConfig";
 
 function SidebarNav() {
@@ -11,11 +18,11 @@ function SidebarNav() {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
       setUser(firebaseUser);
-      console.log(firebaseUser)
+      console.log(firebaseUser);
     });
 
     return () => {
-      unsubscribe(); 
+      unsubscribe();
     };
   }, []);
 
@@ -24,13 +31,22 @@ function SidebarNav() {
   };
 
   return (
-    <Sidebar aria-label="Default sidebar example" className="h-screen">
+    <Sidebar
+      aria-label="Default sidebar example"
+      className="h-screen sticky top-0 shadow-md"
+    >
       <Sidebar.Items>
         <Sidebar.ItemGroup>
           <Sidebar.Item as={Link} to="/" icon={HiChartPie}>
             Dashboard
           </Sidebar.Item>
-          <Sidebar.Item as={Link} to="/pro" icon={HiViewBoards} label="Pro" labelColor="dark">
+          <Sidebar.Item
+            as={Link}
+            to="/pro"
+            icon={HiViewBoards}
+            label="Pro"
+            labelColor="dark"
+          >
             Kanban
           </Sidebar.Item>
           <Sidebar.Item as={Link} to="/inbox" icon={HiInbox} label="3">
@@ -42,6 +58,7 @@ function SidebarNav() {
           <Sidebar.Item as={Link} to="/products" icon={HiShoppingBag}>
             Products
           </Sidebar.Item>
+          <hr />
           {user ? (
             <Sidebar.Item onClick={handleSignOut} icon={HiArrowSmRight}>
               Logout
