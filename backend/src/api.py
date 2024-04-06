@@ -148,7 +148,7 @@ def findIndustry(company):
             seen.add(td_contents[i])
     if len(industries) == 0:
         return ""
-    return industries[0]
+    return industries[0].replace('&amp;', " & ")
 
 def unicode_to_html(input):
     return re.sub(r'[\u007F-\uFFFF]', lambda character: "&#" + str(ord(character.group())) + ";", input.replace(" ", ""))

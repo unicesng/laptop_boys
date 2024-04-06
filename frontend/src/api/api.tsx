@@ -19,3 +19,21 @@ export const sendEmail = async (data:  EmailData) => {
     console.error(error);
   }
 };
+
+export const getCompany = async (id) => {
+    try {
+        const response = await axios.get(`http://127.0.0.1:5000/${id}`);
+        return response.data;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+export const findIndustry = async (company) => {
+  try {
+    const response = await axios.get(`http://127.0.0.1:5000//findIndustry/${company}`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
