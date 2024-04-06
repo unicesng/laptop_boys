@@ -34,7 +34,7 @@ DEFAULT_TODO = "State the name of the company and the standard. Give me suggesti
 DEFAULT_FEEDBACK = "State the name of the company and the standard. Give me feedback for my company's ESG performance. Break it down based on the Sustainability Disclosure Topics & Metrics from the Standards. On top of the description, include a [CATEGORY] next to the name of the topic, where CATEGORY can be 'BAD', 'OK', 'GOOD'. I want you to split the segments of your answer into a JSON format like this: {company, standard, feedback:{standardDisclosureTopic:{category, description}}, overall}."
 IGNORE_IRRELAVANCE = "REMEMBER THIS: IF THE USER ASKS AN IRRELEVANT QUESTION OR SOMETHING THAT IS NOT RELATED TO ESG, YOU MUST REPLY WITH 'Sorry, unknown request.'"
 
-client = pymongo.MongoClient(config["MONGODB_URI"])
+client = pymongo.MongoClient(config["MONGODB_URI"], tls=True, tlsAllowInvalidCertificates=True)
 db = client["database"]
 company_col = db["company"]
 
