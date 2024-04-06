@@ -6,12 +6,12 @@ dotenv.config();
 const app = express();
 
 const PORT = process.env.PORT;
-const MONGODB_URI = process.env.MONGODB_URI; 
+const MONGODB_URI = process.env.MONGODB_URI;
 
 connectDB(MONGODB_URI);
 
 app.get("/", (request: Request, response: Response) => {
-    response.status(200).send("Hello World");
+    response.status(200).json({ "Message": "Hello World" });
 });
 
 app.listen(PORT, () => {
