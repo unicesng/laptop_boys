@@ -12,8 +12,8 @@ client = AzureOpenAI(
     
 deployment_name='gpt-35-turbo' 
 
-instructions = open("training_file.txt", "r").read()
-input_metrics = open("input_metrics.txt", "r").read()
+instructions = open("./src/chatgpt/training_file.txt", "r").read()
+input_metrics = open("./src/chatgpt/input_metrics.txt", "r").read()
 
 # For all possible arguments see https://platform.openai.com/docs/api-reference/chat-completions/create
 response = client.chat.completions.create(
