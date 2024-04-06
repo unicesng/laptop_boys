@@ -40,23 +40,11 @@ function SidebarNav() {
           <Sidebar.Item as={Link} to="/dashboard" icon={HiChartPie}>
             Dashboard
           </Sidebar.Item>
-          <Sidebar.Item
-            as={Link}
-            to="/pro"
-            icon={HiViewBoards}
-            label="Pro"
-            labelColor="dark"
-          >
-            Kanban
+          <Sidebar.Item as={Link} to="/data" icon={HiInbox}>
+            Visualise Data
           </Sidebar.Item>
-          <Sidebar.Item as={Link} to="/inbox" icon={HiInbox} label="3">
-            Inbox
-          </Sidebar.Item>
-          <Sidebar.Item as={Link} to="/users" icon={HiUser}>
-            Users
-          </Sidebar.Item>
-          <Sidebar.Item as={Link} to="/products" icon={HiShoppingBag}>
-            Products
+          <Sidebar.Item as={Link} to="/metric" icon={HiUser}>
+            Metrics
           </Sidebar.Item>
           <hr />
           {user ? (
