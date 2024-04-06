@@ -8,6 +8,7 @@ from dotenv import dotenv_values
 import pymongo
 import requests
 import re
+from flask_cors import CORS
 from bs4 import BeautifulSoup
 from bson import ObjectId
 
@@ -23,6 +24,7 @@ client = AzureOpenAI(
 mailjet = Client(auth=(config["MJ_APIKEY_PUBLIC"], config["MJ_APIKEY_PRIVATE"]), version='v3.1')
 
 app = Flask(__name__)
+CORS(app)
 
 DEPLOYMENT_NAME='gpt-35-turbo' 
 INSTRUCTIONS = open("./src/training_file.txt", "r").read()

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Button,
@@ -8,6 +8,16 @@ import {
   TextInput,
   Textarea,
 } from "flowbite-react";
+import { createCompany } from "./api/api";
+
+export interface ProfileData {
+  name: string;
+  email: string;
+  location: string;
+  employees: number;
+  revenue: number;
+  description: string;
+}
 
 const Profile = () => {
   const [selectedValue, setSelectedValue] = useState("");
@@ -142,6 +152,14 @@ const Profile = () => {
     SASB: "Sustainability Accounting Standards Board",
   };
 
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    const formData = new FormData(event.currentTarget);
+    const profileData = Object.fromEntries(formData.entries());
+    console.log(profileData);
+    const result = createCompany(profileData);
+    console.log(result);
+  }
+
   return (
     <>
       <div className="w-full m-10 h-screen">
@@ -157,6 +175,7 @@ const Profile = () => {
             className="flex flex-col gap-4"
             onSubmit={(event) => {
               event?.preventDefault();
+              handleSubmit(event);
               navigate("/dashboard");
             }}
           >
@@ -164,13 +183,13 @@ const Profile = () => {
               <div className="mb-2 block">
                 <Label
                   className="font-semibold"
-                  htmlFor="profile1"
+                  htmlFor="name"
                   value="Company Name"
                 />
               </div>
               <TextInput
-                id="profile1"
-                name="profile1"
+                id="name"
+                name="name"
                 type="text"
                 placeholder="Company Name"
                 required
@@ -180,13 +199,13 @@ const Profile = () => {
               <div className="mb-2 block">
                 <Label
                   className="font-semibold"
-                  htmlFor="profile2"
+                  htmlFor="email"
                   value="Company Email"
                 />
               </div>
               <TextInput
-                id="profile2"
-                name="profile2"
+                id="email"
+                name="email"
                 type="email"
                 placeholder="Company Email"
                 required
@@ -196,13 +215,13 @@ const Profile = () => {
               <div className="mb-2 block">
                 <Label
                   className="font-semibold"
-                  htmlFor="profile3"
+                  htmlFor="location"
                   value="Company Location"
                 />
               </div>
               <TextInput
-                id="profile3"
-                name="profile3"
+                id="location"
+                name="location"
                 type="text"
                 placeholder="Company Location"
                 required
@@ -212,13 +231,13 @@ const Profile = () => {
               <div className="mb-2 block">
                 <Label
                   className="font-semibold"
-                  htmlFor="profile4"
+                  htmlFor="employees"
                   value="Number of Employees"
                 />
               </div>
               <TextInput
-                id="profile4"
-                name="profile4"
+                id="employees"
+                name="employees"
                 type="number"
                 placeholder="Number of Employees"
                 required
@@ -228,13 +247,13 @@ const Profile = () => {
               <div className="mb-2 block">
                 <Label
                   className="font-semibold"
-                  htmlFor="profile5"
+                  htmlFor="revenue"
                   value="Company Revenue ($)"
                 />
               </div>
               <TextInput
-                id="profile5"
-                name="profile5"
+                id="revenue"
+                name="revenue"
                 type="number"
                 placeholder="Company Revenue"
                 required
@@ -244,13 +263,13 @@ const Profile = () => {
               <div className="mb-2 block">
                 <Label
                   className="font-semibold"
-                  htmlFor="profile6"
+                  htmlFor="description"
                   value="Company Description"
                 />
               </div>
               <Textarea
-                id="profile6"
-                name="profile6"
+                id="description"
+                name="description"
                 type="text"
                 placeholder="Company Description"
                 required
@@ -261,12 +280,12 @@ const Profile = () => {
               <div className="mb-2 block">
                 <Label
                   className="font-semibold"
-                  htmlFor="profile7"
+                  htmlFor="industry"
                   value="Industry"
                 />
               </div>
               <Select
-                id="profile7"
+                id="industry"
                 onChange={handleChange}
                 value={selectedValue}
                 required
@@ -298,42 +317,42 @@ const Profile = () => {
               <div className="block">
                 <Label
                   className="font-semibold"
-                  htmlFor="profile8"
+                  htmlFor="standards"
                   value="Available Standards"
                 />
               </div>
               {Object.keys(industryMap).map((industry) =>
                 selectedValue
                   ? industryMap[industry][selectedValue] && (
-                      <div key={industry} className="mt-2">
-                        {industryMap[industry][selectedValue].map(
-                          (standard) => (
-                            <div
-                              key={standard}
-                              className="mb-1 flex items-center gap-2"
-                            >
-                              <Checkbox
-                                className="h-5 w-5"
-                                value={standard}
-                                checked={selectedStandards.includes(standard)}
-                                onChange={handleCheckboxChange}
-                              />
-                              <Label htmlFor={standard} className="text-base">
-                                [{standard}] {standardMap[standard]}
-                              </Label>
-                            </div>
-                          )
-                        )}
-                      </div>
-                    )
+                    <div key={industry} className="mt-2">
+                      {industryMap[industry][selectedValue].map(
+                        (standard) => (
+                          <div
+                            key={standard}
+                            className="mb-1 flex items-center gap-2"
+                          >
+                            <Checkbox
+                              className="h-5 w-5"
+                              value={standard}
+                              checked={selectedStandards.includes(standard)}
+                              onChange={handleCheckboxChange}
+                            />
+                            <Label htmlFor={standard} className="text-base">
+                              [{standard}] {standardMap[standard]}
+                            </Label>
+                          </div>
+                        )
+                      )}
+                    </div>
+                  )
                   : !messageDisplayed && (
-                      <div key="message">
-                        <p className="text-sm text-gray-500">
-                          Select an Industry to view available standards
-                        </p>
-                        {(messageDisplayed = true)}
-                      </div>
-                    )
+                    <div key="message">
+                      <p className="text-sm text-gray-500">
+                        Select an Industry to view available standards
+                      </p>
+                      {(messageDisplayed = true)}
+                    </div>
+                  )
               )}
             </div>
 
