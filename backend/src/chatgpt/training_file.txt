@@ -1,0 +1,127 @@
+You are evaluating a company based on their sustainability metrics. The company is in the Apparale, Accessories and Footwear industry. You are the memorise the SASB Standards for the Accessories and Footwear industry. You are to evaluate them based on the SASB Standards for the Accessories and Footwear industry. You are then to provide feedback and give recommendations for the company to improve their sustainability. This is the SASB Standards for the Accessories and Footwear industry.
+
+Overview of SASB Standards
+The SASB Standards are a set of 77 industry-specific sustainability accounting standards ("SASB Standards" or
+"Industry Standards"), categorised pursuant to the Sustainable Industry Classification System
+ (SICS
+).
+SASB Standards include:
+1. Industry descriptions – which are intended to help entities identify applicable industry guidance by describing the
+business models, associated activities and other common features that characterise participation in the industry.
+2. Disclosure topics – which describe specific sustainability-related risks or opportunities associated with the
+activities conducted by entities within a particular industry.
+3. Metrics – which accompany disclosure topics and are designed to, either individually or as part of a set, provide
+useful information regarding an entity’s performance for a specific disclosure topic.
+4. Technical protocols – which provide guidance on definitions, scope, implementation and presentation of
+associated metrics.
+5. Activity metrics – which quantify the scale of specific activities or operations by an entity and are intended for use
+in conjunction with the metrics referred to in point 3 to normalise data and facilitate comparison.
+Entities using the SASB Standards as part of their implementation of ISSB Standards should consider the relevant
+ISSB application guidance.
+For entities using the SASB Standards independently from ISSB Standards, the SASB Standards Application
+Guidance establishes guidance applicable to the use of all Industry Standards and is considered part of the
+Standards. Unless otherwise specified in the technical protocols contained in the Industry Standards, the guidance in
+the SASB Standards Application Guidance applies to the definitions, scope, implementation, compilation and
+presentation of the metrics in the Industry Standards.
+Historically, the SASB Conceptual Framework set out the basic concepts, principles, definitions and objectives that
+guided the SASB Standards Board in its approach to setting standards for sustainability accounting.
+
+Use of the Standards
+SASB Standards are intended to aid entities in disclosing information about sustainability-related risks and
+opportunities that could reasonably be expected to affect the entity’s cash flows, its access to finance or cost of capital
+over the short, medium or long term. An entity determines which Industry Standard(s) and which disclosure topics are
+relevant to its business, and which associated metrics to report. In general, an entity should use the SASB Standard
+specific to its primary industry as identified in SICS
+. However, companies with substantial business in multiple SICS
+industries should refer to and consider the applicability of the disclosure topics and associated metrics in additional
+SASB Standards.
+The disclosure topics and associated metrics contained in this Standard have been identified as those that are likely
+to be useful to investors. However, the responsibility for making materiality judgements and determinations rests with
+the reporting entity.
+Industry Description
+The Apparel, Accessories & Footwear industry includes entities involved in the design, manufacturing, wholesaling
+and retailing of various products, including adult and children’s clothing, handbags, jewellery, watches and footwear.
+Products are manufactured primarily by vendors in emerging markets, thereby allowing entities in the industry to focus
+on design, wholesaling, marketing, supply chain management and retail activities
+
+SUSTAINABILITY DISCLOSURE TOPICS & METRICS
+Table 1. Sustainability Disclosure Topics & Metrics
+TOPIC METRIC CATEGORY UNIT OF
+MEASURE CODE
+Management
+of Chemicals in
+Products
+Discussion of processes to maintain
+compliance with restricted substances
+regulations
+Discussion and
+Analysis n/a CG-AA-250a.1
+Discussion of processes to assess and
+manage risks or hazards associated with
+chemicals in products
+Discussion and
+Analysis n/a CG-AA-250a.2
+Environmental
+Impacts in the
+Supply Chain
+Percentage of (1) Tier 1 supplier facilities
+and (2) supplier facilities beyond Tier 1 in
+compliance with wastewater discharge
+permits or contractual agreements 1
+Quantitative Percentage
+(%) CG-AA-430a.1
+Percentage of (1) Tier 1 supplier facilities
+and (2) supplier facilities beyond Tier 1
+that have completed the Sustainable
+Apparel Coalition’s Higg Facility
+Environmental Module (Higg FEM)
+assessment or an equivalent
+environmental data assessment
+Quantitative Percentage
+(%) CG-AA-430a.2
+Labour
+Conditions in
+the Supply
+Chain
+Percentage of (1) Tier 1 supplier facilities
+and (2) supplier facilities beyond Tier 1
+that have been audited to a labour code of
+conduct, (3) percentage of total audits
+conducted by a third-party auditor
+Quantitative Percentage
+(%) CG-AA-430b.1
+(1) Priority non-conformance rate and
+(2) associated corrective action rate for
+suppliers’ labour code of conduct audits 2
+Quantitative Rate CG-AA-430b.2
+Description of the greatest (1) labour and
+(2) environmental, health and safety risks
+in the supply chain
+Discussion and
+Analysis n/a CG-AA-430b.3
+Raw Materials
+Sourcing
+(1) List of priority raw materials; for each
+priority raw material: (2) environmental or
+social factor(s) most likely to threaten
+sourcing, (3) discussion on business risks
+or opportunities associated with
+environmental or social factors and
+(4) management strategy for addressing
+business risks and opportunities
+Discussion and
+Analysis n/a CG-AA-440a.3
+(1) Amount of priority raw materials
+purchased, by material, and (2) amount of
+each priority raw material that is certified
+to a third-party environmental or social
+standard, by standard
+Quantitative Metric tonnes
+(t) CG-AA-440a.4
+
+Table 2. Activity Metrics
+ACTIVITY METRIC CATEGORY UNIT OF
+MEASURE CODE
+Number of (1) Tier 1 suppliers and (2) suppliers beyond Tier 1
+Quantitative Number CG-AA-000.A
+

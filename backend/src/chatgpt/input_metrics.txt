@@ -1,0 +1,18 @@
+Environmental, Social, and Governance (ESG) report for a company using the following sustainability metrics based on established frameworks (SASB, TCFD, GRI):
+
+Management of Chemicals in Products:
+
+Compliance Process: The company has instituted a compliance process that includes quarterly audits of supplier factories to ensure adherence to regulations on restricted substances. Random product testing is carried out to detect any presence of restricted chemicals.
+Risk Assessment: Biannual risk assessments are conducted in partnership with third-party labs to evaluate and manage potential chemical hazards in the company's products.
+Environmental Impacts in the Supply Chain:
+
+Wastewater Compliance: Currently, 85% of Tier 1 supplier facilities and 78% of suppliers beyond Tier 1 comply with wastewater discharge permits or contractual agreements.
+Higg FEM Assessment: About 75% of Tier 1 supplier facilities and 65% of suppliers beyond Tier 1 have completed the Sustainable Apparel Coalition's Higg FEM environmental assessment or an equivalent.
+Labour Conditions in the Supply Chain:
+
+Labour Audit Compliance: Audits show that 90% of Tier 1 supplier facilities and 80% of suppliers beyond Tier 1 adhere to the labor code of conduct. All these audits have been conducted by third-party auditors.
+Non-conformance and Corrective Actions: There is a 10% non-conformance rate regarding the labor code of conduct across suppliers, with a 95% corrective action rate being implemented effectively.
+Raw Materials Sourcing:
+
+Raw Materials and Risks: The company primarily uses cotton as a raw material. Water scarcity poses a significant sourcing threat, prompting the company to support local water conservation and transition to organic cotton.
+Sustainable Sourcing: Out of 1,000 metric tonnes of cotton purchased, 700 metric tonnes are certified to the Global Organic Textile Standard (GOTS), accounting for 70% of the total cotton sourced.
