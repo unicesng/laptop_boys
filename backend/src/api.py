@@ -111,7 +111,9 @@ def findIndustry(company):
         if i % 6 == 4 and td_contents[i] not in seen:
             industries.append(td_contents[i])
             seen.add(td_contents[i])
-    return industries
+    if len(industries) == 0:
+        return ""
+    return industries[0]
 
 def unicode_to_html(input):
     return re.sub(r'[\u007F-\uFFFF]', lambda character: "&#" + str(ord(character.group())) + ";", input.replace(" ", ""))
