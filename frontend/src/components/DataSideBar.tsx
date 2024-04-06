@@ -1,9 +1,11 @@
 import React from "react";
 import { Checkbox } from "flowbite-react";
+import { Metric } from "../Data";
 
 interface DataSideBarProps {
   onToggleSidebar: () => void;
   selectedMetrics: string[];
+  metrics: Metric[];
   isExpanded: boolean;
 }
 
@@ -11,7 +13,10 @@ const DataSideBar: React.FC<DataSideBarProps> = ({
   onToggleSidebar,
   selectedMetrics,
   isExpanded,
+  metrics,
 }) => {
+  console.log(metrics);
+
   return (
     <div
       className={`transition-all duration-300 ${
@@ -20,39 +25,24 @@ const DataSideBar: React.FC<DataSideBarProps> = ({
     >
       <div className="flex flex-col h-screen">
         <div className="px-4 py-2">
-          <h2 className="text-lg mt-3 font-semibold text-gray-700">
-            Currently Visualising
-          </h2>
-          <p>
-            2. Environmental Impacts in the Supply Chain
-          </p>
-          <hr className="my-2"/>
-          <div className={selectedMetrics.includes("2.1") ? "selected" : ""}>
-            Metric 2.1
-          </div>
-          <div className={selectedMetrics.includes("2.2") ? "selected" : ""}>
-            Metric 2.2
-          </div>
           <div className="flex flex-col mt-4">
             <h2 className="text-lg font-semibold text-gray-700">
               Select to Visualise
             </h2>
-            <div className="flex">
-              <Checkbox className="mt-1 mr-1"></Checkbox>
-              <p
-                className={selectedMetrics.includes("2.1") ? "selected" : ""}
-              >
-                Management of Chemicals in Products
-              </p>
-            </div>
-            <div className="flex">
-              <Checkbox className="mt-1 mr-1"></Checkbox>
-              <p
-                className={selectedMetrics.includes("2.2") ? "selected" : ""}
-              >
-                Labour Conditions in the Supply Chain
-              </p>
-            </div>
+            {metrics &&
+              metrics.length > 0 &&
+              metrics.map((metric) => (
+                <div key={metric.name} className="flex">
+                  <Checkbox className="mt-1 mr-1"></Checkbox>
+                  <p
+                    className={
+                      selectedMetrics.includes(metric.name) ? "selected" : ""
+                    }
+                  >
+                    {metric.name}
+                  </p>
+                </div>
+              ))}
           </div>
         </div>
         <button

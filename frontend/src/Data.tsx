@@ -1,10 +1,11 @@
 // import './DataVisualizationApp.css'; // Assuming you have a corresponding CSS file for styles
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Button, Spinner } from "flowbite-react";
 import DataSideBar from "./components/DataSideBar";
 import AdminHeader from "./components/AdminHeader";
 import DataGraph from "./components/DataGraph";
+import { set } from "firebase/database";
 
 interface RecommendationItem {
   category: string;
@@ -32,6 +33,29 @@ interface Feedback {
   overall: string;
 }
 
+interface Metric {
+  name: string;
+  metrics: MetricDetail[];
+}
+
+interface MetricDetail {
+  name: string;
+  type: string;
+}
+
+interface Company {
+  company: {
+    email: string;
+    employees: string;
+    industry: string;
+    standards: Metric[];
+  };
+  location: string;
+  name: string;
+  revenue: string;
+  _id: string;
+}
+
 const Data: React.FC = () => {
   const [isExpanded, setIsExpanded] = useState(true);
   const [recommendations, setRecommendations] =
@@ -40,6 +64,20 @@ const Data: React.FC = () => {
   const [isRecommendationsLoading, setIsRecommendationsLoading] =
     useState(false);
   const [isFeedbackLoading, setIsFeedbackLoading] = useState(false);
+  const [metrics, setMetrics] = useState<Metric[] | null>(null);
+
+  useEffect(() => {
+    try {
+      axios
+        .get("http://127.0.0.1:5000/company/661196069aa01b1f5f7325ac")
+        .then((response) => {
+          setMetrics(response.data.company.industry.standards[0].topics);
+          console.log(metrics)
+        });
+    } catch {
+      console.log("Error");
+    }
+  }, []);
 
   const onToggleSidebar = () => {
     setIsExpanded(!isExpanded);
@@ -163,6 +201,7 @@ const Data: React.FC = () => {
           isExpanded={isExpanded}
           onToggleSidebar={onToggleSidebar}
           selectedMetrics={[]}
+          metrics={metrics}
         />
       </div>
     </>
@@ -226,3 +265,4 @@ const Data: React.FC = () => {
 // };
 
 export default Data;
+export type { Metric };
