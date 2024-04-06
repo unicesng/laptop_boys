@@ -27,7 +27,7 @@ function SidebarNav() {
     <Sidebar aria-label="Default sidebar example" className="h-screen">
       <Sidebar.Items>
         <Sidebar.ItemGroup>
-          <Sidebar.Item as={Link} to="/" icon={HiChartPie}>
+          <Sidebar.Item as={Link} to="/dashboard" icon={HiChartPie}>
             Dashboard
           </Sidebar.Item>
           <Sidebar.Item as={Link} to="/pro" icon={HiViewBoards} label="Pro" labelColor="dark">
