@@ -1,6 +1,6 @@
+from json import JSONEncoder
 import os
 from typing import List
-from flask.json import JSONEncoder
 from mailjet_rest import Client
 from flask import Flask, request
 from openai import AzureOpenAI
@@ -15,7 +15,7 @@ from bson import ObjectId
 
 config = dotenv_values(".env")
     
-client = AzureOpenAI(
+openAiClient = AzureOpenAI(
     api_key=config["AZURE_OPENAI_API_KEY"],  
     api_version="2024-02-01",
     azure_endpoint = config["AZURE_OPENAI_ENDPOINT"]
@@ -85,7 +85,7 @@ def generate_recommendations():
     if data.get("todo"):
         todo = data.get("todo")
 
-    response = client.chat.completions.create(
+    response = openAiClient.chat.completions.create(
         model=DEPLOYMENT_NAME,
         messages=[
             {"role": "system", "content": INSTRUCTIONS},
