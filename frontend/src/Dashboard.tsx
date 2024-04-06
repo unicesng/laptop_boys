@@ -61,11 +61,11 @@ function Dashboard() {
               Admin Tasks Remaining
             </h5>
             <p className="font-normal text-gray-700 dark:text-gray-400">
-              <Checkbox />
+              <Checkbox color="purple" />
               <Label htmlFor="remember"> &emsp; Fill in Company Profile</Label>
             </p>
             <p className="font-normal text-gray-700 dark:text-gray-400">
-              <Checkbox />
+              <Checkbox color="purple" />
               <Label htmlFor="remember">
                 {" "}
                 &emsp; Select relevant ESG metrics{" "}
@@ -77,14 +77,14 @@ function Dashboard() {
               Get Personalised Reccomendation
             </h5>
             <p className="font-normal text-gray-700 dark:text-gray-400">
-              <Checkbox />
+              <Checkbox color="purple" />
               <Label htmlFor="remember">
                 {" "}
                 &emsp; Set targets for each metric
               </Label>
             </p>
             <p className="font-normal text-gray-700 dark:text-gray-400">
-              <Checkbox />
+              <Checkbox color="purple" />
               <Label htmlFor="remember">
                 {" "}
                 &emsp; Disseminate to relevant departments{" "}

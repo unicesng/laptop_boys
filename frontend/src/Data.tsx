@@ -72,7 +72,7 @@ const Data: React.FC = () => {
         .get("http://127.0.0.1:5000/company/661196069aa01b1f5f7325ac")
         .then((response) => {
           setMetrics(response.data.company.industry.standards[0].topics);
-          console.log(metrics)
+          console.log(metrics);
         });
     } catch {
       console.log("Error");
@@ -137,7 +137,7 @@ const Data: React.FC = () => {
             </Button>
           </div>
           {isRecommendationsLoading ? (
-            <Spinner className="mb-5"></Spinner>
+            <Spinner className="mb-5" color="purple"></Spinner>
           ) : recommendations ? (
             <div className="w-4/5 mb-10">
               <p className="text-lg font-semibold text-center mb-3">
@@ -162,7 +162,7 @@ const Data: React.FC = () => {
             </div>
           ) : null}
           {isFeedbackLoading ? (
-            <Spinner className="mb-5"></Spinner>
+            <Spinner className="mb-5" color="purple"></Spinner>
           ) : feedback ? (
             <div className="w-4/5 mb-10">
               <p className="text-lg font-semibold text-center mb-3">Feedback</p>

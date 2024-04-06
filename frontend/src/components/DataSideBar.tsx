@@ -21,7 +21,7 @@ const DataSideBar: React.FC<DataSideBarProps> = ({
     <div
       className={`transition-all duration-300 ${
         isExpanded ? "w-64" : "w-0"
-      } h-full overflow-hidden bg-white shadow-md`}
+      } h-screen sticky top-0 bg-white shadow-md`}
     >
       <div className="flex flex-col h-screen">
         <div className="px-4 py-2">
@@ -33,7 +33,7 @@ const DataSideBar: React.FC<DataSideBarProps> = ({
               metrics.length > 0 &&
               metrics.map((metric) => (
                 <div key={metric.name} className="flex">
-                  <Checkbox className="mt-1 mr-1"></Checkbox>
+                  <Checkbox color="purple" className="mt-1 mr-1"></Checkbox>
                   <p
                     className={
                       selectedMetrics.includes(metric.name) ? "selected" : ""
