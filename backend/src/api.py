@@ -1,6 +1,7 @@
+from json import JSONEncoder
 import os
 from typing import List
-from flask.json import JSONEncoder
+# from flask.json import JSONEncoder
 from mailjet_rest import Client
 from flask import Flask, request
 from openai import AzureOpenAI
