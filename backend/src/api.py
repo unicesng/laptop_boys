@@ -1,4 +1,5 @@
 import os
+from typing import List
 from mailjet_rest import Client
 from flask import Flask, request
 from openai import AzureOpenAI
@@ -120,7 +121,7 @@ def unicode_to_html(input):
 
 # Define schema
 class Company:
-    def __init__(self, name, revenue, employees, industry):
+    def __init__(self, name: str, revenue: int, employees: int, industry: str):
         self.name = name
         self.revenue = revenue
         self.employees = employees
@@ -133,6 +134,27 @@ def insert_company():
     company = Company(data.get("name"), data.get("revenue"), data.get("employees"), data.get("industry"))
     company_col.insert_one(company.__dict__)
     return {"message": "Company inserted successfully"}
+
+
+@app.route('/company', methods=['GET'])
+def get_companies():
+    companies = company_col.find({}, {"_id": 0})
+    return {"companies": list(companies)}
+
+
+# Define schema
+class Metric:
+    def __init__(self, name: str, type: str):
+        self.name = name
+        self.type = type
+
+
+# Define schema
+class Topic:
+    def __init__(self, name, metrics: List[Metric]):
+        self.name = name
+        self.metrics = metrics
+
 
 
 
