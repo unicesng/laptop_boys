@@ -148,20 +148,65 @@ class Industry:
         self.topics = topics
 
 # Define schema
+class CompanyBuilder:
+    def __init__(self):
+        self.company = Company()
+
+    def with_name(self, name: str):
+        self.company.name = name
+        return self
+
+    def with_email(self, email: str):
+        self.company.email = email
+        return self
+
+    def with_location(self, location: str):
+        self.company.location = location
+        return self
+
+    def with_employees(self, employees: int):
+        self.company.employees = employees
+        return self
+
+    def with_revenue(self, revenue: int):
+        self.company.revenue = revenue
+        return self
+
+    def with_industry(self, industry: Industry):
+        self.company.industry = industry
+        return self
+
+    def build(self):
+        return self.company
+
+
 class Company:
-    def __init__(self, name: str, revenue: int, email: str, location: str, employees: int, industry: Industry):
-        self.name = name
-        self.revenue = revenue
-        self.email = email
-        self.location = location
-        self.employees = employees
-        self.industry = industry
+    def __init__(self):
+        self.name = None
+        self.email = None
+        self.location = None
+        self.employees = None
+        self.revenue = None
+        self.industry = None
 
 # Insert data into collections
 @app.route('/company', methods=['POST'])
 def insert_company():
     data = request.get_json()
-    company = Company(data.get("name"), data.get("revenue"), data.get("employees"), data.get("industry"))
+    company_name = data.get("name")
+    revenue = data.get("revenue")
+    employees = data.get("employees")
+    email = data.get("email")
+    industry = data.get("industry")
+    location = data.get("location")
+    company = (CompanyBuilder()
+           .with_name(company_name)
+           .with_email(email)
+           .with_location(location)
+           .with_employees(employees)
+           .with_revenue(revenue)
+           .with_industry(industry)
+           .build())
     company_col.insert_one(company.__dict__)
     return {"message": "Company inserted successfully"}
 
