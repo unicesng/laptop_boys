@@ -1,4 +1,5 @@
 import os
+from mailjet_rest import Client
 from flask import Flask, request
 from openai import AzureOpenAI
 from dotenv import dotenv_values
@@ -14,6 +15,8 @@ client = AzureOpenAI(
     azure_endpoint = config["AZURE_OPENAI_ENDPOINT"]
     )
 
+mailjet = Client(auth=(config["MJ_APIKEY_PUBLIC"], config["MJ_APIKEY_PRIVATE"]), )
+
 app = Flask(__name__)
 
 DEPLOYMENT_NAME='gpt-35-turbo' 
@@ -23,7 +26,36 @@ DEFAULT_COMPANY = "Fast Retailing"
 DEFAULT_TODO = "State the name of the standard. Give me suggestions to improve my company's sustainability practices based on my company's ESG report."
 IGNORE_IRRELAVANCE = "REMEMBER THIS: IF THE USER ASKS AN IRRELEVANT QUESTION OR SOMETHING THAT IS NOT RELATED TO ESG, YOU MUST REPLY WITH 'Sorry, unknown request.'"
 
-@app.route("/recommend", methods=["GET"])
+@app.route("/email", methods=["POST"])
+def send_email():
+    data = request.get_json()
+    email = data.get("email")
+    message = data.get("message")
+    email_data = {
+          'Messages': [
+    {
+      "From": {
+        "Email": "mintunxd+sender@gmail.com",
+        "Name": "Me"
+      },
+      "To": [
+        {
+          "Email": "mintunxd+recipient@gmail.com",
+          "Name": "You"
+        }
+      ],
+      "Subject": "My first Mailjet Email!",
+      "TextPart": "Greetings from Mailjet!",
+      "HTMLPart": "<h3>Dear passenger 1, welcome to <a href=\"https://www.mailjet.com/\">Mailjet</a>!</h3><br />May the delivery force be with you!"
+    }
+  ]
+}
+    result = mailjet.send.create(data=email_data)
+
+
+    return result
+
+@app.route("/recommend", methods=["POST"])
 def generate_recommendations():
     data = request.get_json()
 
