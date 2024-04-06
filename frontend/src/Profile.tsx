@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Button,
   Checkbox,
@@ -11,6 +12,7 @@ import {
 const Profile = () => {
   const [selectedValue, setSelectedValue] = useState("");
   const [selectedStandards, setSelectedStandards] = useState([]);
+  const navigate = useNavigate();
 
   let messageDisplayed = false;
 
@@ -151,7 +153,13 @@ const Profile = () => {
             Please fill in the information below to get started
           </div>
 
-          <form className="flex flex-col gap-4">
+          <form
+            className="flex flex-col gap-4"
+            onSubmit={(event) => {
+              event?.preventDefault();
+              navigate("/dashboard");
+            }}
+          >
             <div>
               <div className="mb-2 block">
                 <Label
@@ -263,33 +271,37 @@ const Profile = () => {
                 />
               </div>
               {Object.keys(industryMap).map((industry) =>
-                selectedValue ? (
-                  industryMap[industry][selectedValue] && (
-                    <div key={industry} className="mt-2">
-                      {industryMap[industry][selectedValue].map((standard) => (
-                        <div
-                          key={standard}
-                          className="mb-1 flex items-center gap-2"
-                        >
-                          <Checkbox
-                            className="h-5 w-5"
-                            value={standard}
-                            checked={selectedStandards.includes(standard)}
-                            onChange={handleCheckboxChange}
-                          />
-                          <Label htmlFor={standard} className="text-base">
-                            [{standard}] {standardMap[standard]}
-                          </Label>
-                        </div>
-                      ))}
-                    </div>
-                  )
-                ) : !messageDisplayed && (
-                  <div key="message">
-                    <p className="text-sm text-gray-500">Select an Industry to view available standards</p>
-                    {messageDisplayed = true}
-                  </div>
-                )
+                selectedValue
+                  ? industryMap[industry][selectedValue] && (
+                      <div key={industry} className="mt-2">
+                        {industryMap[industry][selectedValue].map(
+                          (standard) => (
+                            <div
+                              key={standard}
+                              className="mb-1 flex items-center gap-2"
+                            >
+                              <Checkbox
+                                className="h-5 w-5"
+                                value={standard}
+                                checked={selectedStandards.includes(standard)}
+                                onChange={handleCheckboxChange}
+                              />
+                              <Label htmlFor={standard} className="text-base">
+                                [{standard}] {standardMap[standard]}
+                              </Label>
+                            </div>
+                          )
+                        )}
+                      </div>
+                    )
+                  : !messageDisplayed && (
+                      <div key="message">
+                        <p className="text-sm text-gray-500">
+                          Select an Industry to view available standards
+                        </p>
+                        {(messageDisplayed = true)}
+                      </div>
+                    )
               )}
             </div>
 
