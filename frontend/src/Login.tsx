@@ -17,7 +17,7 @@ function LoginPage() {
 
     try {
       await signInWithPopup(auth, provider);
-      navigate("/");
+      navigate("/profile");
     } catch (error) {
       console.error(error);
     }
@@ -28,7 +28,7 @@ function LoginPage() {
 
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      navigate("/");
+      navigate("/profile");
     } catch (error) {
       console.error(error);
     }
@@ -61,7 +61,7 @@ function LoginPage() {
 
   return (
     <div className="w-full flex justify-center items-center h-screen">
-      <div className="w-full max-w-md bg-white shadow-md rounded-md p-8">
+      <div className="w-full max-w-md bg-gray-100 shadow-md rounded-md p-8">
         <p className="text-xl text-center mb-4 font-semibold">Sign In to ESG Application</p>
         <form onSubmit={handleSubmit} className="flex max-w-md flex-col gap-4">
           <div>
