@@ -6,7 +6,7 @@ import DataSideBar from "./components/DataSideBar";
 import AdminHeader from "./components/AdminHeader";
 import DataGraph from "./components/DataGraph";
 
-interface Recommendation {
+interface RecommendationItem {
   category: string;
   description: string;
 }
@@ -15,27 +15,56 @@ interface Recommendations {
   company: string;
   overall: string;
   recommend: {
-    [key: string]: Recommendation;
+    [key: string]: RecommendationItem;
   };
   standard: string;
 }
 
+interface FeedbackItem {
+  category: string;
+  description: string;
+}
+
+interface Feedback {
+  company: string;
+  standard: string;
+  feedback: { [key: string]: FeedbackItem };
+  overall: string;
+}
+
 const Data: React.FC = () => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [recommendations, setRecommendations] = useState<Recommendations>(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [recommendations, setRecommendations] =
+    useState<Recommendations | null>(null);
+  const [feedback, setFeedback] = useState<Feedback | null>(null);
+  const [isRecommendationsLoading, setIsRecommendationsLoading] =
+    useState(false);
+  const [isFeedbackLoading, setIsFeedbackLoading] = useState(false);
 
   const onToggleSidebar = () => {
     setIsExpanded(!isExpanded);
   };
 
   const getRecommendations = () => {
-    setIsLoading(true);
+    setIsRecommendationsLoading(true);
     try {
       axios.post("http://127.0.0.1:5000/recommend", {}).then((response) => {
         console.log(response.data);
         setRecommendations(response.data);
-        setIsLoading(false);
+        setIsRecommendationsLoading(false);
+      });
+    } catch {
+      console.log("Error");
+    }
+  };
+
+  const getFeedback = () => {
+    setIsFeedbackLoading(true);
+    try {
+      axios.post("http://127.0.0.1:5000/feedback", {}).then((response) => {
+        console.log(response.data);
+        setFeedback(response.data);
+        setIsFeedbackLoading(false);
       });
     } catch {
       console.log("Error");
@@ -68,10 +97,12 @@ const Data: React.FC = () => {
         <Button onClick={() => getRecommendations()} color="purple">
           Get Recommendations
         </Button>
-        <Button color="purple">Get Feedback</Button>
+        <Button onClick={() => getFeedback()} color="purple">
+          Get Feedback
+        </Button>
       </div>
-      {isLoading ? (
-        <Spinner></Spinner>
+      {isRecommendationsLoading ? (
+        <Spinner className="mb-5"></Spinner>
       ) : recommendations ? (
         <div className="w-4/5 mb-10">
           <p className="text-lg font-semibold text-center mb-3">
@@ -88,6 +119,41 @@ const Data: React.FC = () => {
                       {recommendations.recommend[key].category}
                     </span>
                     :&nbsp;{recommendations.recommend[key].description}
+                  </p>
+                </div>
+              );
+            })}
+          </p>
+        </div>
+      ) : null}
+      {isFeedbackLoading ? (
+        <Spinner className="mb-5"></Spinner>
+      ) : feedback ? (
+        <div className="w-4/5 mb-10">
+          <p className="text-lg font-semibold text-center mb-3">Feedback</p>
+          <p className="text-justify whitespace-pre-line">
+            {feedback.overall}
+            <br />
+            {Object.keys(feedback.feedback).map((key) => {
+              return (
+                <div key={key}>
+                  <p className="mt-3">
+                    <span className="font-semibold mt-3">
+                      {key}:&nbsp;
+                      {feedback.feedback[key].category === "GOOD" ? (
+                        <span className="text-green-500">GOOD</span>
+                      ) : feedback.feedback[key].category === "OK" ? (
+                        <span className="text-yellow-500">
+                          {feedback.feedback[key].category}
+                        </span>
+                      ) : (
+                        <span className="text-red-500">
+                          {feedback.feedback[key].category}
+                        </span>
+                      )}
+                    </span>
+                    <br />
+                    {feedback.feedback[key].description}
                   </p>
                 </div>
               );
