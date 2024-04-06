@@ -3,16 +3,27 @@
 
 import { Button, Modal } from "flowbite-react";
 import { useState } from "react";
+import { sendEmail } from "../api/api";
+
+export interface EmailData {
+    email: string;
+    message: string;
+}
 
 const AssignDepartmentModal: React.FC = () => {
     const [openModal, setOpenModal] = useState(false);
     const [email, setEmail] = useState("");
 
-     const handleSendEmail = async () => {
-        console.log(email);
-        // send email logic with mailjet api
-            
-
+    const handleSendEmail = async () => {
+        try {
+            const result = await sendEmail({
+                email: email,
+                message: "Assign Department"
+            })
+            console.log(result);
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     return (
