@@ -1,4 +1,5 @@
 import os
+from flask import Flask
 from openai import AzureOpenAI
 from dotenv import dotenv_values
 config = dotenv_values(".env")
@@ -8,6 +9,8 @@ client = AzureOpenAI(
     api_version="2024-02-01",
     azure_endpoint = config["AZURE_OPENAI_ENDPOINT"]
     )
+
+app = Flask(__name__)
 
     
 deployment_name='gpt-35-turbo' 
@@ -27,4 +30,11 @@ response = client.chat.completions.create(
     temperature=0,
 )
 
-print(f"{response.choices[0].message.role}: {response.choices[0].message.content}")
+@app.route("/generate", methods=["POST"])
+def generate():
+    return response.choices[0].message.content
+
+if __name__ == "__main__":
+    app.run(debug=True)
+
+# print(f"{response.choices[0].message.role}: {response.choices[0].message.content}")
