@@ -1,51 +1,79 @@
 // import './DataVisualizationApp.css'; // Assuming you have a corresponding CSS file for styles
 import React, { useState } from "react";
+import axios from "axios";
+import { Button } from "flowbite-react";
 import DataSideBar from "./components/DataSideBar";
 import AdminHeader from "./components/AdminHeader";
 
 const Data: React.FC = () => {
-    const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [recommendations, setRecommendations] = useState(null);
 
-    const onToggleSidebar = () => {
-        setIsExpanded(!isExpanded);
-    };
+  const onToggleSidebar = () => {
+    setIsExpanded(!isExpanded);
+  };
 
-    // return (
-    //     <div className="flex flex-col px-4">
-    //         <AdminHeader title="Data Visualisation"></AdminHeader>
-    //         <div className="">
-    //             <DataSideBar
-    //                 isExpanded={isExpanded}
-    //                 onToggleSidebar={onToggleSidebar}
-    //                 selectedMetrics={[]}
-    //             />
-    //             <div> test</div>
-    //         </div>
-    //     </div>
-    // );
-    const title = "Environmental Impacts in the Supply Chain";
-    const description =
-        "Metric 2.1: Percentage of (1) Tier 1 supplier facilities and (2) supplier facilities beyond Tier 1 in comp";
-    const topic = "Management of Chemicals in Products ";
-    return (
-        <div className="flex flex-col w-full">
-            <AdminHeader title="Data Visualisation"></AdminHeader>
-            <div className="flex flex-row">
-                <DataSideBar
-                    isExpanded={isExpanded}
-                    onToggleSidebar={onToggleSidebar}
-                    selectedMetrics={[]}
-                />
-                <div className="flex flex-col items-center justify-center mx-auto text-left">
-                    <h1 className="text-2xl">{title}</h1>
-                    <h2 className="text-2xl">{description}</h2>
-                    <div className="w-full flex">
-                        {/* <DataGraph></DataGraph> */}
-                    </div>
-                </div>
-            </div>
+  const getRecommendations = () => {
+    try {
+      axios.post("http://127.0.0.1:5000/recommend", {}).then((response) => {
+        console.log(response.data);
+        setRecommendations(response.data);
+      });
+    } catch {
+      console.log("Error");
+    }
+  };
+
+  // return (
+  //     <div className="flex flex-col px-4">
+  //         <AdminHeader title="Data Visualisation"></AdminHeader>
+  //         <div className="">
+  //             <DataSideBar
+  //                 isExpanded={isExpanded}
+  //                 onToggleSidebar={onToggleSidebar}
+  //                 selectedMetrics={[]}
+  //             />
+  //             <div> test</div>
+  //         </div>
+  //     </div>
+  // );
+  const title = "Environmental Impacts in the Supply Chain";
+  const description =
+    "Metric 2.1: Percentage of (1) Tier 1 supplier facilities and (2) supplier facilities beyond Tier 1 in comp";
+  const topic = "Management of Chemicals in Products ";
+  return (
+    <div className="flex flex-col w-full items-center">
+      <AdminHeader title="Data Visualisation"></AdminHeader>
+      <div className="flex flex-row">
+        <DataSideBar
+          isExpanded={isExpanded}
+          onToggleSidebar={onToggleSidebar}
+          selectedMetrics={[]}
+        />
+        <div className="flex flex-col items-center justify-center mx-auto text-left">
+          <h1 className="text-2xl">{title}</h1>
+          <h2 className="text-2xl">{description}</h2>
+          <div className="w-full flex">
+            <DataGraph></DataGraph>
+          </div>
         </div>
-    );
+      </div>
+      <div className="flex gap-2 mb-10">
+        <Button onClick={() => getRecommendations()}>
+          Get Recommendations
+        </Button>
+        <Button>Get Feedback</Button>
+      </div>
+      {recommendations && (
+        <div className="w-4/5 mb-10">
+          <p className="text-lg font-semibold text-center mb-3">Recommendations</p>
+          <p className="text-justify whitespace-pre-line">
+            {recommendations}
+          </p>
+        </div>
+      )}
+    </div>
+  );
 };
 
 // {/* <div>

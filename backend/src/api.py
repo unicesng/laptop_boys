@@ -2,7 +2,7 @@ from json import JSONEncoder
 import os
 from typing import List
 from mailjet_rest import Client
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from openai import AzureOpenAI
 from dotenv import dotenv_values
 import pymongo
@@ -30,7 +30,8 @@ DEPLOYMENT_NAME='gpt-35-turbo'
 INSTRUCTIONS = open("./src/training_file.txt", "r").read()
 FAKE_INPUT_METRICS = open("./src/input_metrics.txt", "r").read()
 DEFAULT_COMPANY = "Fast Retailing"
-DEFAULT_TODO = "State the name of the standard. Give me suggestions to improve my company's sustainability practices based on my company's ESG report."
+DEFAULT_TODO = "State the name of the company and the standard. Give me suggestions to improve my company's sustainability practices based on my company's ESG report. I want you to split the segments of your answer into a JSON format like this: {company, standard, recommend:{standardDisclosureTopic:{category, description}}, overall}"
+DEFAULT_FEEDBACK = "State the name of the company and the standard. Give me feedback for my company's ESG performance. Break it down based on the Sustainability Disclosure Topics & Metrics from the Standards. On top of the description, include a [CATEGORY] next to the name of the topic, where CATEGORY can be 'BAD', 'OK', 'GOOD'. I want you to split the segments of your answer into a JSON format like this: {company, standard, feedback:{standardDisclosureTopic:{category, description}}, overall}."
 IGNORE_IRRELAVANCE = "REMEMBER THIS: IF THE USER ASKS AN IRRELEVANT QUESTION OR SOMETHING THAT IS NOT RELATED TO ESG, YOU MUST REPLY WITH 'Sorry, unknown request.'"
 
 client = pymongo.MongoClient(config["MONGODB_URI"])
@@ -45,7 +46,7 @@ def send_email():
     message = data.get("message")
     html_message = f"<h3>{message}</h3>!"
     email_data = {
-          'Messages': [
+        'Messages': [
     {
       "From": {
         "Email": "laptop@eggtive.com",
@@ -77,6 +78,34 @@ def generate_recommendations():
     company_name = DEFAULT_COMPANY
     input_metrics = FAKE_INPUT_METRICS
     todo = DEFAULT_TODO
+
+    if data.get("company_name"):
+        company_name = data.get("company_name")
+    if data.get("input_metrics"):
+        input_metrics = data.get("input_metrics")
+    if data.get("todo"):
+        todo = data.get("todo")
+
+    response = openAiClient.chat.completions.create(
+        model=DEPLOYMENT_NAME,
+        messages=[
+            {"role": "system", "content": INSTRUCTIONS},
+            {"role": "user", "content": f"My company is called {company_name}. This is my company's ESG report:\n {input_metrics}"},
+            {"role": "user", "content": todo},
+            {"role": "system", "content": IGNORE_IRRELAVANCE}
+        ],
+        temperature=0.01,
+    )
+
+    return response.choices[0].message.content
+
+@app.route("/feedback", methods=["POST"])
+def generate_feedback():
+    data = request.get_json()
+
+    company_name = DEFAULT_COMPANY
+    input_metrics = FAKE_INPUT_METRICS
+    todo = DEFAULT_FEEDBACK
 
     if data.get("company_name"):
         company_name = data.get("company_name")
