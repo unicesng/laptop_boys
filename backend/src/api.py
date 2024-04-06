@@ -45,7 +45,7 @@ def send_email():
     message = data.get("message")
     html_message = f"<h3>{message}</h3>!"
     email_data = {
-          'Messages': [
+        'Messages': [
     {
       "From": {
         "Email": "laptop@eggtive.com",
