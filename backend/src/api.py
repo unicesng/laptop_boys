@@ -1,5 +1,6 @@
 import os
 from typing import List
+from flask.json import JSONEncoder
 from mailjet_rest import Client
 from flask import Flask, request
 from openai import AzureOpenAI
@@ -8,6 +9,8 @@ import pymongo
 import requests
 import re
 from bs4 import BeautifulSoup
+from bson import ObjectId
+
 
 config = dotenv_values(".env")
     
@@ -119,11 +122,38 @@ def findIndustry(company):
 def unicode_to_html(input):
     return re.sub(r'[\u007F-\uFFFF]', lambda character: "&#" + str(ord(character.group())) + ";", input.replace(" ", ""))
 
+class CustomJSONEncoder(JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, ObjectId):
+            return str(obj)
+        return super().default(obj)
+
+app.json_encoder = CustomJSONEncoder
+# Define schema
+class Metric:
+    def __init__(self, name: str, type: str):
+        self.name = name
+        self.type = type
+
+class Topic:
+    def __init__(self, name, metrics: List[Metric]):
+        self.name = name
+        self.metrics = metrics
+
+
+# Define schema
+class Industry:
+    def __init__(self, name: str, topics: List[Topic]):
+        self.name = name
+        self.topics = topics
+
 # Define schema
 class Company:
-    def __init__(self, name: str, revenue: int, employees: int, industry: str):
+    def __init__(self, name: str, revenue: int, email: str, location: str, employees: int, industry: Industry):
         self.name = name
         self.revenue = revenue
+        self.email = email
+        self.location = location
         self.employees = employees
         self.industry = industry
 
@@ -136,24 +166,15 @@ def insert_company():
     return {"message": "Company inserted successfully"}
 
 
-@app.route('/company', methods=['GET'])
-def get_companies():
-    companies = company_col.find({}, {"_id": 0})
-    return {"companies": list(companies)}
+@app.route('/company/<id>', methods=['GET'])
+def get_company(id):
+    company = company_col.find_one({"_id": ObjectId(id)})
+    if company is not None:
+        return {"company": company}
+    else:
+        return {"error": "Company not found"}, 404
 
 
-# Define schema
-class Metric:
-    def __init__(self, name: str, type: str):
-        self.name = name
-        self.type = type
-
-
-# Define schema
-class Topic:
-    def __init__(self, name, metrics: List[Metric]):
-        self.name = name
-        self.metrics = metrics
 
 
 
